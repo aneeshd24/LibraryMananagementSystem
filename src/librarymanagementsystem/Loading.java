@@ -1,0 +1,129 @@
+package librarymanagementsystem;
+
+import java.awt.*;
+import javax.swing.*;
+import java.sql.*;
+
+public class Loading extends JFrame implements Runnable {
+
+	private static final long serialVersionUID = 1L;//auto generated default
+	private JPanel contentPane;
+	private JProgressBar progressBar;
+	Connection conn;
+	int s;
+	Thread th;
+
+	public static void main(String[] args) {
+            new Loading().setVisible(true);
+	}
+    private String timeZone;
+
+	public void setUploading() {
+            setVisible(false);
+            th.start();
+	}
+
+	public void run() {
+            try {
+                for (int i = 0; i < 200; i++) {
+                    s = s + 1;
+                    int m = progressBar.getMaximum();
+                    int v = progressBar.getValue();
+                    if (v < m) {
+                        progressBar.setValue(progressBar.getValue() + 1);
+                    } else {
+                        i = 201;
+                        setVisible(false);
+                        new Admin(timeZone).setVisible(true);
+                    }
+                    Thread.sleep(50);
+                }
+            } catch (Exception e) {
+		e.printStackTrace();
+            }
+	}
+
+	public Loading() {
+           
+            super("Loading");
+            th = new Thread((Runnable) this);
+
+            setBounds(600, 300, 600, 400);
+            contentPane = new JPanel();
+            setContentPane(contentPane);
+            contentPane.setLayout(null);
+            
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            ImageIcon iconLogoMain  = new ImageIcon(ClassLoader.getSystemResource("icons/logoMain.png"));
+            Image imageLogoMain = iconLogoMain.getImage().getScaledInstance(240, 240,Image.SCALE_DEFAULT);
+            setIconImage(imageLogoMain);
+
+            JLabel lbllibraryManagement = new JLabel("DIGITAL LIBRAY MANAGEMENT SYSTEM");
+            lbllibraryManagement.setForeground(new Color(34, 166, 179));
+            lbllibraryManagement.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+            lbllibraryManagement.setBounds(40, 46, 500, 35);
+            contentPane.add(lbllibraryManagement);
+	
+            progressBar = new JProgressBar();
+            progressBar.setFont(new Font("Tahoma", Font.BOLD, 12));
+            progressBar.setStringPainted(true);
+            progressBar.setBounds(130, 135, 300, 25);
+            contentPane.add(progressBar);
+
+            JLabel lblNewLabel_2 = new JLabel("Loading....");
+            lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 20));
+            lblNewLabel_2.setForeground(new Color(160, 82, 45));
+            lblNewLabel_2.setBounds(200, 165, 150, 20);
+            contentPane.add(lblNewLabel_2);
+
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.WHITE);
+            panel.setBounds(0, 0, 590, 390);
+            contentPane.add(panel);
+                
+            setUploading();
+	}
+        
+        public Loading(String timeZone)
+        {
+             super("Loading");
+            th = new Thread((Runnable) this);
+            this.timeZone=timeZone;
+            setBounds(600, 300, 600, 400);
+            contentPane = new JPanel();
+            setContentPane(contentPane);
+            contentPane.setLayout(null);
+            
+            setLocationRelativeTo(null);
+            setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+            ImageIcon iconLogoMain  = new ImageIcon(ClassLoader.getSystemResource("icons/logoMain.png"));
+            Image imageLogoMain = iconLogoMain.getImage().getScaledInstance(240, 240,Image.SCALE_DEFAULT);
+            setIconImage(imageLogoMain);
+
+            JLabel lbllibraryManagement = new JLabel("DIGITAL LIBRAY MANAGEMENT SYSTEM");
+            lbllibraryManagement.setForeground(new Color(34, 166, 179));
+            lbllibraryManagement.setFont(new Font("Trebuchet MS", Font.BOLD, 25));
+            lbllibraryManagement.setBounds(40, 46, 500, 35);
+            contentPane.add(lbllibraryManagement);
+	
+            progressBar = new JProgressBar();
+            progressBar.setFont(new Font("Tahoma", Font.BOLD, 12));
+            progressBar.setStringPainted(true);
+            progressBar.setBounds(130, 135, 300, 25);
+            contentPane.add(progressBar);
+            
+            JLabel lblNewLabel_2 = new JLabel("Please Wait....");
+            lblNewLabel_2.setFont(new Font("Yu Gothic UI Semibold", Font.BOLD, 20));
+            lblNewLabel_2.setForeground(new Color(160, 82, 45));
+            lblNewLabel_2.setBounds(200, 165, 150, 20);
+            contentPane.add(lblNewLabel_2);
+
+            JPanel panel = new JPanel();
+            panel.setBackground(Color.WHITE);
+            panel.setBounds(0, 0, 590, 390);
+            contentPane.add(panel);
+                
+            setUploading();
+        }
+}
